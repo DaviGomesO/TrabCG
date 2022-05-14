@@ -18,9 +18,6 @@ class Ponto():
 
 
 class Casa(Ponto):
-    # ident: int
-    #x: float
-    #y: float
     # vou usar essa variável preenchida para auxiliar quando já tiver um objeto na casa
     preenchida: bool
 
@@ -46,7 +43,7 @@ def calcula_PM():
 
 
 def inicio():
-    global pos
+    global pos, objetoSelecionado
     glClearColor(0.5, 0.5, 0.5, 1.0)
     calcula_PM()
     pos = random.randint(0, 63)
@@ -54,7 +51,7 @@ def inicio():
     objetoSelecionado.x = 7.5  # MatPontoMedio[pos]
     objetoSelecionado.y = 7.5
     MatPontoMedio[63].preenchida = True
-    # MatPontoMedio[pos].preenchida = True
+    MatPontoMedio[pos].preenchida = True
 
 
 def resize(w: int, h: int):
@@ -67,7 +64,7 @@ def resize(w: int, h: int):
 def tecladoSpecial(key: int, x: int, y: int):
 
     global objetoSelecionado
-    # //os códigos das teclas especiais sÃ£o valores inteiros
+    # //os códigos das teclas especiais são valores inteiros
     # aqui eu verifico se o objeto selecionado tem um objeto preenchendo a casa do tabuleiro
     if MatPontoMedio[objetoSelecionado.ident].preenchida == True:
         if key == GLUT_KEY_LEFT:
@@ -82,8 +79,6 @@ def tecladoSpecial(key: int, x: int, y: int):
                     objetoSelecionado.ident = MatPontoMedio[casa_esquerda].ident
                     objetoSelecionado.x = MatPontoMedio[casa_esquerda].x
                     objetoSelecionado.y = MatPontoMedio[casa_esquerda].y
-                    # objetoSelecionado = MatPontoMedio[casa_esquerda].ident, MatPontoMedio[
-                    #     casa_esquerda].x, MatPontoMedio[casa_esquerda].y
                     # objetoSelecionado.preenchida = True
                     # objetoSelecionado.ident = casa_esquerda
                     # objetoSelecionado.x = objetoSelecionado.x - 1
@@ -161,7 +156,8 @@ def camera():
     R = 0.2
     CentroX = CentroY = 0
     # MatPontoMedio[63].preenchida = True
-    glTranslatef(MatPontoMedio[63].x, MatPontoMedio[63].y, 0)
+    glTranslatef(objetoSelecionado.x, objetoSelecionado.y, 0)
+    # glTranslatef(MatPontoMedio[63].x, MatPontoMedio[63].y, 0)
     glColor(0.7, 0.7, 0.7)
     glBegin(GL_POLYGON)
 
@@ -240,11 +236,7 @@ def desenha():
     glColor3f(1, 0, 0.5)
     quadrado(pos)
     glPopMatrix()
-    # objetoSelecionado = 63, 6.5, 7.5
-    # objetoSelecionado.ident = 63
-    # objetoSelecionado.x = 7.5  # MatPontoMedio[pos]
-    # objetoSelecionado.y = 7.5
-    # objetoSelecionado.preenchida = True
+
     # glPushMatrix()
     # glTranslatef(6.5, 7.5, 0)
     glColor3f(0, 0.7, 0)
