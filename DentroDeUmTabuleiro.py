@@ -50,10 +50,11 @@ def inicio():
     glClearColor(0.5, 0.5, 0.5, 1.0)
     calcula_PM()
     pos = random.randint(0, 63)
-    objetoSelecionado.ident = 62
+    objetoSelecionado.ident = 63
     objetoSelecionado.x = 7.5  # MatPontoMedio[pos]
     objetoSelecionado.y = 7.5
-    MatPontoMedio[pos].preenchida = True
+    MatPontoMedio[63].preenchida = True
+    # MatPontoMedio[pos].preenchida = True
 
 
 def resize(w: int, h: int):
@@ -66,11 +67,15 @@ def resize(w: int, h: int):
 def tecladoSpecial(key: int, x: int, y: int):
 
     global objetoSelecionado
-    # //os cÃ³digos das teclas especiais sÃ£o valores inteiros
+    # //os códigos das teclas especiais sÃ£o valores inteiros
+    # aqui eu verifico se o objeto selecionado tem um objeto preenchendo a casa do tabuleiro
     if MatPontoMedio[objetoSelecionado.ident].preenchida == True:
         if key == GLUT_KEY_LEFT:
+            # verifico se o objeto selecionado ainda está em uma posição maior que a borda esquerda
             if objetoSelecionado.x - 1 > 0:
+                # a casa esquerda é criada para fazer a troca de casa do objeto
                 casa_esquerda = objetoSelecionado.ident - 8
+                # verifica se essa casa não tem algum outro objeto
                 if MatPontoMedio[casa_esquerda].preenchida == False:
                     MatPontoMedio[objetoSelecionado.ident].preenchida = False
                     # objetoSelecionado = MatPontoMedio[casa_esquerda]
@@ -97,7 +102,7 @@ def tecladoSpecial(key: int, x: int, y: int):
                     objetoSelecionado.ident = MatPontoMedio[casa_direita].ident
                     objetoSelecionado.x = MatPontoMedio[casa_direita].x
                     objetoSelecionado.y = MatPontoMedio[casa_direita].y
-                    objetoSelecionado.preenchida = True
+                    # objetoSelecionado.preenchida = True
                     MatPontoMedio[objetoSelecionado.ident].preenchida = True
         # //caso a seta direita seja pressionada, a coordenada x do ponto inferior esquerdo Ã© aumentada, deslocando o quadrado pra direita
         elif key == GLUT_KEY_DOWN:
@@ -113,7 +118,7 @@ def tecladoSpecial(key: int, x: int, y: int):
                     objetoSelecionado.ident = MatPontoMedio[casa_baixo].ident
                     objetoSelecionado.x = MatPontoMedio[casa_baixo].x
                     objetoSelecionado.y = MatPontoMedio[casa_baixo].y
-                    objetoSelecionado.preenchida = True
+                    # objetoSelecionado.preenchida = True
                     MatPontoMedio[objetoSelecionado.ident].preenchida = True
         # //caso a seta pra baixo seja pressionada, a coordenada y do ponto inferior esquerdo Ã© reduzida, deslocando o quadrado pra baixo
         elif key == GLUT_KEY_UP:
@@ -125,7 +130,7 @@ def tecladoSpecial(key: int, x: int, y: int):
                     objetoSelecionado.ident = MatPontoMedio[casa_cima].ident
                     objetoSelecionado.x = MatPontoMedio[casa_cima].x
                     objetoSelecionado.y = MatPontoMedio[casa_cima].y
-                    objetoSelecionado.preenchida = True
+                    # objetoSelecionado.preenchida = True
                     # objetoSelecionado.ident = casa_cima
                     # objetoSelecionado.y = objetoSelecionado.y + 1
                     MatPontoMedio[objetoSelecionado.ident].preenchida = True
@@ -155,7 +160,7 @@ def camera():
     N = 50
     R = 0.2
     CentroX = CentroY = 0
-    MatPontoMedio[63].preenchida = True
+    # MatPontoMedio[63].preenchida = True
     glTranslatef(MatPontoMedio[63].x, MatPontoMedio[63].y, 0)
     glColor(0.7, 0.7, 0.7)
     glBegin(GL_POLYGON)
